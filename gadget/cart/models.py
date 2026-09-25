@@ -32,7 +32,7 @@ class Cart(models.Model):
     def clear(self):
         self.items.all().delete()
 
-    def checkout(self, customer_name, customer_email='', payment_method='cash'):
+    def checkout(self, customer_name, customer_email='', payment_method='cash', phone_number=''):
         if not self.items.exists():
             raise ValueError('Cart is empty.')
 
@@ -51,9 +51,23 @@ class Cart(models.Model):
                 unit_price=item.product.price,
             )
 
-        order.mark_paid()
-        from invoices.models import Invoice
-        Invoice.create_from_order(order)
+        if payment_method == 'cash':
+            order.mark_paid()
+            from invoices.models import Invoice
+            Invoice.create_from_order(order)
+        elif payment_method == 'lipa_pole_pole':
+            order.mark_paid()
+            from invoices.models import Invoice
+            Invoice.create_from_order(order)
+        else:
+            from invoices.models import Invoice
+            Invoice.objects.create(
+                order=order,
+                invoice_number=f'INV-{order.pk:05d}',
+                total_amount=order.total_amount,
+                status='draft',
+            )
+
         self.clear()
         return order
 

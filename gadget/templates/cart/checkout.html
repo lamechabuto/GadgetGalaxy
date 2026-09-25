@@ -22,14 +22,23 @@
             <label>Payment Method</label><br>
             {% if has_mobile_items %}
                 <label style="display: block; margin-top: 8px;">
-                    <input type="radio" name="payment_method" value="lipa_pole_pole" checked>
+                    <input type="radio" name="payment_method" value="lipa_pole_pole">
                     Lipa Pole Pole
                 </label>
             {% endif %}
             <label style="display: block; margin-top: 8px;">
-                <input type="radio" name="payment_method" value="cash" {% if not has_mobile_items %}checked{% endif %}>
+                <input type="radio" name="payment_method" value="mpesa" checked>
+                M-Pesa STK Push
+            </label>
+            <label style="display: block; margin-top: 8px;">
+                <input type="radio" name="payment_method" value="cash">
                 Cash
             </label>
+        </p>
+
+        <p id="mpesa-phone-field" style="display: none;">
+            <label>Phone Number</label><br>
+            <input type="tel" name="phone_number" value="254712345678" placeholder="2547XXXXXXXX">
         </p>
 
         {% if has_mobile_items %}
@@ -48,22 +57,24 @@
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('checkout-form');
         const plan = document.getElementById('lipa-pole-pole-plan');
+        const phoneField = document.getElementById('mpesa-phone-field');
         const radios = form.querySelectorAll('input[name="payment_method"]');
 
-        if (!plan) {
-            return;
-        }
-
-        function updatePlanVisibility() {
+        function updateVisibility() {
             const selected = form.querySelector('input[name="payment_method"]:checked').value;
-            plan.style.display = selected === 'lipa_pole_pole' ? 'block' : 'none';
+            if (plan) {
+                plan.style.display = selected === 'lipa_pole_pole' ? 'block' : 'none';
+            }
+            if (phoneField) {
+                phoneField.style.display = selected === 'mpesa' ? 'block' : 'none';
+            }
         }
 
         radios.forEach(function (radio) {
-            radio.addEventListener('change', updatePlanVisibility);
+            radio.addEventListener('change', updateVisibility);
         });
 
-        updatePlanVisibility();
+        updateVisibility();
     });
 </script>
 {% endblock %}

@@ -16,6 +16,7 @@ class SaleOrder(models.Model):
     PAYMENT_METHOD_CHOICES = [
         ('lipa_pole_pole', 'Lipa Pole Pole'),
         ('cash', 'Cash'),
+        ('mpesa', 'Mpesa STK Push'),
     ]
 
     customer_name = models.CharField(max_length=200)
