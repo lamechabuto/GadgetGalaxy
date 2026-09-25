@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<h1>Inventory Overview</h1>
+<div class="cards">
+    {% for item in inventory_items %}
+    <div class="card">
+        <h3>{{ item.product.name }}</h3>
+        <p>{{ item.product.brand }}</p>
+        <p>Warehouse: {{ item.warehouse }}</p>
+        <p>Available stock: {{ item.available_stock }}</p>
+        <p>Reorder level: {{ item.reorder_level }}</p>
+        {% if item.available_stock > item.reorder_level %}
+            <span class="stock-indicator in-stock">In Stock</span>
+        {% elif item.available_stock > 0 %}
+            <span class="stock-indicator low-stock">Low Stock</span>
+        {% else %}
+            <span class="stock-indicator out-stock">Out Stock</span>
+        {% endif %}
+    </div>
+    {% empty %}
+    <p>No inventory items available.</p>
+    {% endfor %}
+</div>
+
+<div class="card">
+    <h3>Recent Inventory Movements</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Type</th>
+                <th>Quantity</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movement in recent_movements %}
+            <tr>
+                <td>{{ movement.item.product.name }}</td>
+                <td>{{ movement.movement_type }}</td>
+                <td>{{ movement.quantity }}</td>
+                <td>{{ movement.notes|default:'-' }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No movement records yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<h1>Checkout</h1>
+<div class="card">
+    {% if error %}
+        <p style="color: #b91c1c;">{{ error }}</p>
+    {% endif %}
+    <form method="post" id="checkout-form">
+        {% csrf_token %}
+        <p>
+            <label>Customer Name</label><br>
+            <input type="text" name="customer_name" required>
+        </p>
+        <p>
+            <label>Email</label><br>
+            <input type="email" name="customer_email">
+        </p>
+        <p>
+            <label>Payment Method</label><br>
+            {% if has_mobile_items %}
+                <label style="display: block; margin-top: 8px;">
+                    <input type="radio" name="payment_method" value="lipa_pole_pole" checked>
+                    Lipa Pole Pole
+                </label>
+            {% endif %}
+            <label style="display: block; margin-top: 8px;">
+                <input type="radio" name="payment_method" value="cash" {% if not has_mobile_items %}checked{% endif %}>
+                Cash
+            </label>
+        </p>
+
+        {% if has_mobile_items %}
+            <div id="lipa-pole-pole-plan" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin: 16px 0;">
+                <p style="margin: 0 0 8px;"><strong>Deposit:</strong> Ksh. {{ payment_plan.deposit|floatformat:2 }}</p>
+                <p style="margin: 0;"><strong>Daily payment for 12 months:</strong> Ksh. {{ payment_plan.daily_payment|floatformat:2 }}</p>
+            </div>
+        {% endif %}
+
+        <p><strong>Total:</strong> Ksh. {{ cart.total_amount }}</p>
+        <button type="submit">Place Order</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('checkout-form');
+        const plan = document.getElementById('lipa-pole-pole-plan');
+        const radios = form.querySelectorAll('input[name="payment_method"]');
+
+        if (!plan) {
+            return;
+        }
+
+        function updatePlanVisibility() {
+            const selected = form.querySelector('input[name="payment_method"]:checked').value;
+            plan.style.display = selected === 'lipa_pole_pole' ? 'block' : 'none';
+        }
+
+        radios.forEach(function (radio) {
+            radio.addEventListener('change', updatePlanVisibility);
+        });
+
+        updatePlanVisibility();
+    });
+</script>
+{% endblock %}

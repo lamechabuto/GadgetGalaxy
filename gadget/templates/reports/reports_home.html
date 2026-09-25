@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<h1>Sales Reports</h1>
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Orders</th>
+                <th>Units Sold</th>
+                <th>Revenue</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.report_date }}</td>
+                <td>{{ report.total_orders }}</td>
+                <td>{{ report.total_units_sold }}</td>
+                <td>Ksh.{{ report.total_revenue }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No reports available yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

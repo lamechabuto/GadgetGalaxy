@@ -1,0 +1,54 @@
+[
+  {
+    "model": "products.productcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Smartphones",
+      "slug": "smartphones",
+      "description": "Mobile phones and accessories"
+    }
+  },
+  {
+    "model": "products.productcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Laptops",
+      "slug": "laptops",
+      "description": "Portable computing devices"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "Galaxy S24",
+      "brand": "Samsung",
+      "category": 1,
+      "price": "799.00",
+      "stock_quantity": 14,
+      "description": "High-performance smartphone with AI camera features.",
+      "device_type": "mobile",
+      "condition": "new",
+      "is_active": true,
+      "created_at": "2026-01-01T00:00:00Z",
+      "updated_at": "2026-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "IdeaPad 5",
+      "brand": "Lenovo",
+      "category": 2,
+      "price": "949.00",
+      "stock_quantity": 9,
+      "description": "15-inch laptop designed for business and study workloads.",
+      "device_type": "laptop",
+      "condition": "new",
+      "is_active": true,
+      "created_at": "2026-01-01T00:00:00Z",
+      "updated_at": "2026-01-01T00:00:00Z"
+    }
+  }
+]

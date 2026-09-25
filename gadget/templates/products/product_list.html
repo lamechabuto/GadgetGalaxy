@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Products | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <h1>Discover premium devices</h1>
+    <p>Curated phones, laptops, and accessories built for performance, mobility, and everyday productivity.</p>
+</div>
+
+<div style="margin: 20px 0 30px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
+    <h2 style="margin: 0; color: var(--primary-dark);">
+        {% if query %}Search results for "{{ query }}"{% else %}Products Catalog{% endif %}
+    </h2>
+    <a class="btn btn-primary" href="/">Back to Home</a>
+</div>
+
+<div class="category-filter-panel">
+    <div class="category-filter-header">
+        <span class="category-filter-icon" aria-hidden="true">⌕</span>
+        <h3>Product category</h3>
+    </div>
+    <div class="category-filter-options">
+        <a href="/products/" class="category-filter-link {% if not category_slug %}active{% endif %}">All</a>
+        {% for category in categories %}
+            <a href="/products/?category={{ category.slug }}{% if query %}&q={{ query|urlencode }}{% endif %}" class="category-filter-link {% if category.slug == category_slug %}active{% endif %}">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 14px; margin-bottom: 14px; background: #f3f4f6;" />
+        {% else %}
+            <div style="width: 100%; height: 180px; border-radius: 14px; margin-bottom: 14px; background: linear-gradient(135deg, #e5e7eb, #cbd5e1); display: flex; align-items: center; justify-content: center; color: #374151; font-weight: 700;">No Image</div>
+        {% endif %}
+        <span class="badge">{{ product.device_type|title }}</span>
+        <h4>{{ product.brand }} {{ product.name }}</h4>
+        <p class="muted">{{ product.category.name }} · {{ product.condition|title }}</p>
+        <p>{{ product.description|default:'No description yet.' }}</p>
+        <div class="price" style="margin-bottom: 8px;">Cash price: Ksh. {{ product.price }}</div>
+        {% if product.supports_lipa_pole_pole %}
+            <div class="muted" style="margin-bottom: 6px;"><strong>Lipa Pole Pole</strong></div>
+            <div class="muted" style="margin-bottom: 4px;"><strong>Deposit:</strong> Ksh. {{ product.lipa_pole_pole_deposit|floatformat:2 }}</div>
+            <div class="muted" style="margin-bottom: 10px;"><strong>Daily payment:</strong> Ksh. {{ product.lipa_pole_pole_daily_payment|floatformat:2 }} for 12 months</div>
+        {% endif %}
+        <p><strong>Stock:</strong> {{ product.stock_quantity }}</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
+            <a class="btn btn-secondary" href="/products/{{ product.id }}/">View details</a>
+            <a class="btn btn-primary" href="/cart/add/{{ product.id }}/">Add to cart</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="card" style="grid-column: 1 / -1;">
+        <p>No products available yet.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

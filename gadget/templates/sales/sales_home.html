@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Sales | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<h1>Sales Dashboard</h1>
+<div class="card">
+    <h3>Total Revenue</h3>
+    <div class="stat">Ksh. {{ total_revenue }}</div>
+</div>
+
+<div class="card">
+    <h3>Recent Orders</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.customer_name }}</td>
+                <td><span class="badge">{{ order.status }}</span></td>
+                <td>Ksh. {{ order.total_amount }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No sales yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

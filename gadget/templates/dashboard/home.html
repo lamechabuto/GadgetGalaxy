@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<div class="dashboard-shell">
+    <div class="dashboard-backdrop"></div>
+    <div class="dashboard-panel">
+        <div class="page-hero">
+            <span class="hero-badge">Home</span>
+            <h1>Welcome back</h1>
+            <p>Monitor stock health, order activity, and revenue performance from one streamlined command center.</p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Total Products</h3>
+                <div class="stat">{{ total_products }}</div>
+            </div>
+            <div class="card">
+                <h3>Total Stock</h3>
+                <div class="stat">{{ total_stock }}</div>
+            </div>
+            <div class="card">
+                <h3>Total Orders</h3>
+                <div class="stat">{{ total_orders }}</div>
+            </div>
+            <div class="card">
+                <h3>Revenue</h3>
+                <div class="stat">Ksh. {{ revenue }}</div>
+            </div>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Low Stock Alerts</h3>
+                <p class="muted">{{ low_stock_items }} product(s) need replenishment.</p>
+            </div>
+            <div class="card">
+                <h3>Top Stock</h3>
+                {% for product in top_products %}
+                    <p>{{ product.name }} - {{ product.stock_quantity }}</p>
+                {% empty %}
+                    <p>No products.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="section-heading-row">
+            <h2>Featured Products</h2>
+            <a href="/products/">View all</a>
+        </div>
+        <div class="product-grid featured-products-grid">
+            {% for product in featured_products %}
+                <div class="product-card compact-product-card">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="featured-product-image" />
+                    {% else %}
+                        <div class="featured-product-placeholder">No Image</div>
+                    {% endif %}
+                    <div class="featured-product-body">
+                        <span class="badge">{{ product.device_type|title }}</span>
+                        <h4>{{ product.brand }} {{ product.name }}</h4>
+                        <p class="muted">{{ product.category.name }}</p>
+                        <div class="price">Ksh. {{ product.price }}</div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="card" style="grid-column: 1 / -1;">
+                    <p>No featured products yet.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Recent Inventory</h3>
+                {% if recent_inventory %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Warehouse</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in recent_inventory %}
+                            <tr>
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.warehouse }}</td>
+                                <td>{{ item.available_stock }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="muted">No inventory activity yet.</p>
+                {% endif %}
+            </div>
+
+            <div class="card">
+                <h3>Recent Orders</h3>
+                {% if recent_orders %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in recent_orders %}
+                            <tr>
+                                <td>{{ order.customer_name }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>Ksh. {{ order.total_amount }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="muted">No sales orders yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

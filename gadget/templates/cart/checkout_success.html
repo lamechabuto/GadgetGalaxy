@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Order placed | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Order placed successfully</h1>
+    <p>Thank you, {{ order.customer_name }}.</p>
+    <p><strong>Order total:</strong> ${{ order.total_amount }}</p>
+    <p><strong>Payment method:</strong> {{ order.get_payment_method_display }}</p>
+    <p><strong>Status:</strong> {{ order.status }}</p>
+    <p><strong>Invoice:</strong> {{ order.invoice.invoice_number }}</p>
+    <p><a href="{% url 'invoice_pdf' order.invoice.pk %}" target="_blank" rel="noopener noreferrer">Download invoice PDF</a></p>
+</div>
+{% endblock %}

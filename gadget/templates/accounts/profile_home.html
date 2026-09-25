@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<h1>Account Profile</h1>
+<div class="cards">
+    <div class="card">
+        <h3>Customer Profile</h3>
+        <p><strong>User:</strong> {{ customer_profile.user.get_full_name|default:customer_profile.user.username }}</p>
+        <p><strong>Phone:</strong> {{ customer_profile.phone|default:'Not provided' }}</p>
+        <p><strong>City:</strong> {{ customer_profile.city|default:'Not provided' }}</p>
+        <p><strong>Country:</strong> {{ customer_profile.country|default:'Not provided' }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Staff Profile</h3>
+        <p><strong>Role:</strong> {{ staff_profile.role|title }}</p>
+        <p><strong>Department:</strong> {{ staff_profile.department|default:'Not assigned' }}</p>
+        <p><strong>Status:</strong> {% if staff_profile.is_active %}Active{% else %}Inactive{% endif %}</p>
+    </div>
+</div>
+{% endblock %}

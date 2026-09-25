@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Contacts | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <h1>Contact GadgetGalaxy</h1>
+    <p>We’re here to help with product questions, order support, inventory concerns, and service requests.</p>
+</div>
+
+{% if success_message %}
+    <div class="card" style="margin-bottom: 20px; background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.25);">
+        <p style="margin: 0; color: #166534; font-weight: 700;">{{ success_message }}</p>
+    </div>
+{% endif %}
+
+{% if error %}
+    <div class="card" style="margin-bottom: 20px; background: rgba(239, 68, 68, 0.06); border-color: rgba(239, 68, 68, 0.22);">
+        <p style="margin: 0; color: #b91c1c; font-weight: 700;">{{ error }}</p>
+    </div>
+{% endif %}
+
+<div class="product-grid" style="margin-top: 20px;">
+    <div class="product-card">
+        <span class="badge">Support</span>
+        <h4>Customer support</h4>
+        <p class="muted">Email us for product questions and order help.</p>
+        <p><strong>Email:</strong> lamechabuto04@gmail.com</p>
+        <p><strong>Phone:</strong> 0715088097</p>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/254715088097?text=Hello%20GadgetGalaxy%2C%20I%20need%20help%20with%20my%20order." target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
+    </div>
+
+    <div class="product-card">
+        <span class="badge">Sales</span>
+        <h4>Sales team</h4>
+        <p class="muted">Speak with our sales team about business orders and bulk purchases.</p>
+        <p><strong>Email:</strong> lamechabuto04@gmail.com</p>
+        <p><strong>Hours:</strong> Mon - Sat, 9:00 AM - 6:00 PM</p>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/254715088097?text=Hello%20sales%20team%2C%20I%20would%20like%20to%20buy%20a%20product." target="_blank" rel="noopener noreferrer">Message sales</a></p>
+    </div>
+
+    <div class="product-card">
+        <span class="badge">Location</span>
+        <h4>Head office</h4>
+        <p class="muted">Visit us for in-person assistance and product demos.</p>
+        <p><strong>Address:</strong> 245 Tech, Nakuru, Kenya</p>
+        <p><strong>Website:</strong> lamechabuto04@gmail.com</p>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 30px;">
+    <h3 style="margin-top: 0;">Send us a message</h3>
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        <p>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" value="{{ form_data.name }}" required>
+        </p>
+        <p>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" value="{{ form_data.email }}" required>
+        </p>
+        <p>
+            <label for="phone">Phone (optional)</label>
+            <input id="phone" name="phone" type="tel" value="{{ form_data.phone }}">
+        </p>
+        <p>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required>{{ form_data.message }}</textarea>
+        </p>
+        <button type="submit">Send message</button>
+    </form>
+</div>
+{% endblock %}

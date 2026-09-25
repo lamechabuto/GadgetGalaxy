@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign up | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-wrap">
+        <h1 style="text-align: center; margin-bottom: 18px; color: #0F172A;">Create account</h1>
+        <div class="auth-card">
+            <form method="post" class="auth-form">
+                {% csrf_token %}
+                <p>
+                    <label for="id_username">Username:</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <span class="error">{{ form.username.errors|join:', ' }}</span>
+                    {% endif %}
+                </p>
+                <p>
+                    <label for="id_email">Email:</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <span class="error">{{ form.email.errors|join:', ' }}</span>
+                    {% endif %}
+                </p>
+                <p>
+                    <label for="id_password1">Password:</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <span class="error">{{ form.password1.errors|join:', ' }}</span>
+                    {% endif %}
+                </p>
+                <p>
+                    <label for="id_password2">Confirm password:</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <span class="error">{{ form.password2.errors|join:', ' }}</span>
+                    {% endif %}
+                </p>
+                {% if form.non_field_errors %}
+                    <div class="error">{{ form.non_field_errors|join:', ' }}</div>
+                {% endif %}
+                <button type="submit">Create account</button>
+            </form>
+            <p style="margin-top: 18px; text-align: center;">Already have an account? <a href="/accounts/login/">Login</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} | GadgetGalaxy{% endblock %}
+
+{% block content %}
+<div class="card" style="display: grid; grid-template-columns: minmax(280px, 420px) 1fr; gap: 28px; align-items: start;">
+    <div>
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; max-height: 420px; object-fit: cover; border-radius: 18px; background: #f3f4f6;" />
+        {% else %}
+            <div style="width: 100%; height: 320px; border-radius: 18px; background: linear-gradient(135deg, #e5e7eb, #cbd5e1); display: flex; align-items: center; justify-content: center; color: #374151; font-weight: 700;">No Image</div>
+        {% endif %}
+    </div>
+    <div>
+        <h1>{{ product.brand }} {{ product.name }}</h1>
+        <p class="muted">{{ product.category.name }} · {{ product.device_type|title }} · {{ product.condition|title }}</p>
+        <div class="price" style="margin-bottom: 10px;">Cash price: Ksh. {{ product.price }}</div>
+        {% if product.supports_lipa_pole_pole %}
+            <div class="muted" style="margin-bottom: 6px;"><strong>Lipa Pole Pole</strong></div>
+            <div class="muted" style="margin-bottom: 4px;"><strong>Deposit:</strong> Ksh. {{ product.lipa_pole_pole_deposit|floatformat:2 }}</div>
+            <div class="muted" style="margin-bottom: 12px;"><strong>Daily payment:</strong> Ksh. {{ product.lipa_pole_pole_daily_payment|floatformat:2 }} for 12 months</div>
+        {% endif %}
+        <p>{{ product.description }}</p>
+        <p><strong>Stock available:</strong> {{ product.stock_quantity }}</p>
+        <a href="/cart/add/{{ product.id }}/" class="badge">Add to cart</a>
+    </div>
+</div>
+{% endblock %}
