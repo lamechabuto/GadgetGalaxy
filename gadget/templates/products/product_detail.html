@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}{{ product.name }} | GadgetGalaxy{% endblock %}
 
@@ -14,11 +15,11 @@
     <div>
         <h1>{{ product.brand }} {{ product.name }}</h1>
         <p class="muted">{{ product.category.name }} · {{ product.device_type|title }} · {{ product.condition|title }}</p>
-        <div class="price" style="margin-bottom: 10px;">Cash price: Ksh. {{ product.price }}</div>
+        <div class="price" style="margin-bottom: 10px;">Cash price: Ksh. {{ product.price|floatformat:2|intcomma }}</div>
         {% if product.supports_lipa_pole_pole %}
             <div class="muted" style="margin-bottom: 6px;"><strong>Lipa Pole Pole</strong></div>
-            <div class="muted" style="margin-bottom: 4px;"><strong>Deposit:</strong> Ksh. {{ product.lipa_pole_pole_deposit|floatformat:2 }}</div>
-            <div class="muted" style="margin-bottom: 12px;"><strong>Daily payment:</strong> Ksh. {{ product.lipa_pole_pole_daily_payment|floatformat:2 }} for 12 months</div>
+            <div class="muted" style="margin-bottom: 4px;"><strong>Deposit:</strong> Ksh. {{ product.lipa_pole_pole_deposit|floatformat:2|intcomma }}</div>
+            <div class="muted" style="margin-bottom: 12px;"><strong>Daily payment:</strong> Ksh. {{ product.lipa_pole_pole_daily_payment|floatformat:2|intcomma }} for 12 months</div>
         {% endif %}
         <p>{{ product.description }}</p>
         <p><strong>Stock available:</strong> {{ product.stock_quantity }}</p>

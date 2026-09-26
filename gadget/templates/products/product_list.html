@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}Products | GadgetGalaxy{% endblock %}
 
@@ -42,11 +43,11 @@
         <h4>{{ product.brand }} {{ product.name }}</h4>
         <p class="muted">{{ product.category.name }} · {{ product.condition|title }}</p>
         <p>{{ product.description|default:'No description yet.' }}</p>
-        <div class="price" style="margin-bottom: 8px;">Cash price: Ksh. {{ product.price }}</div>
+        <div class="price" style="margin-bottom: 8px;">Cash price: Ksh. {{ product.price|floatformat:2|intcomma }}</div>
         {% if product.supports_lipa_pole_pole %}
             <div class="muted" style="margin-bottom: 6px;"><strong>Lipa Pole Pole</strong></div>
-            <div class="muted" style="margin-bottom: 4px;"><strong>Deposit:</strong> Ksh. {{ product.lipa_pole_pole_deposit|floatformat:2 }}</div>
-            <div class="muted" style="margin-bottom: 10px;"><strong>Daily payment:</strong> Ksh. {{ product.lipa_pole_pole_daily_payment|floatformat:2 }} for 12 months</div>
+            <div class="muted" style="margin-bottom: 4px;"><strong>Deposit:</strong> Ksh. {{ product.lipa_pole_pole_deposit|floatformat:2|intcomma }}</div>
+            <div class="muted" style="margin-bottom: 10px;"><strong>Daily payment:</strong> Ksh. {{ product.lipa_pole_pole_daily_payment|floatformat:2|intcomma }} for 12 months</div>
         {% endif %}
         <p><strong>Stock:</strong> {{ product.stock_quantity }}</p>
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">

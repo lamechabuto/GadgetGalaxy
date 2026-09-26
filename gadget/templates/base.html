@@ -291,19 +291,22 @@
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
-            gap: 32px;
+            gap: 40px;
+            flex-wrap: wrap;
         }
 
         .footer-main {
-            flex: 1.5;
+            flex: 1.6;
+            min-width: 260px;
             max-width: 560px;
         }
 
         .footer-links-panel {
             flex: 1;
+            min-width: 240px;
             display: grid;
-            grid-template-columns: repeat(2, minmax(180px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(2, minmax(170px, 1fr));
+            gap: 28px;
             align-items: start;
         }
 
@@ -316,8 +319,8 @@
         .footer-section h3 {
             margin: 0 0 8px;
             color: #1f2937;
-            font-size: 1rem;
-            letter-spacing: 0.04em;
+            font-size: 0.82rem;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
         }
 
@@ -325,25 +328,25 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .footer-logo-mark {
-            width: 42px;
-            height: 42px;
-            border-radius: 14px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
             background: linear-gradient(135deg, #06b6d4 0%, #4f46e5 100%);
             color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 1rem;
             box-shadow: 0 10px 18px rgba(79, 70, 229, 0.25);
         }
 
         .footer-logo-text {
-            font-size: 1.15rem;
+            font-size: 1.08rem;
             font-weight: 800;
             color: #111827;
         }
@@ -352,7 +355,7 @@
         .site-footer li,
         .site-footer a {
             margin: 0;
-            font-size: 0.95rem;
+            font-size: 0.93rem;
             color: rgba(17, 24, 39, 0.8);
             line-height: 1.7;
         }
@@ -376,15 +379,22 @@
             gap: 8px;
         }
 
+        .footer-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         .footer-address {
             color: rgba(17, 24, 39, 0.75);
             font-style: normal;
+            margin-top: 8px;
         }
 
         .footer-slogan {
             color: #312e81;
             font-weight: 700;
-            margin-top: 4px;
+            margin-top: 8px;
         }
 
         .site-footer-bottom {
@@ -401,13 +411,14 @@
 
         .site-footer-bottom p {
             margin: 0;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
         .site-footer-links {
             display: flex;
-            gap: 18px;
+            gap: 16px;
             flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .site-footer-links a {
@@ -498,7 +509,7 @@
 
         .stat {
             font-size: clamp(1.6rem, 2vw, 2.2rem);
-            font-weight: 800;
+            font-weight: 600;
             color: #000000;
             line-height: 1.1;
         }
@@ -692,7 +703,7 @@
 
         .price {
             font-size: 1.5rem;
-            font-weight: 800;
+            font-weight: 600;
             color: #000000;
             margin: 12px 0;
         }
@@ -1002,6 +1013,7 @@
                         <li><a href="/">Home</a></li>
                         <li><a href="/products/">Products</a></li>
                         <li><a href="/inventory/">Inventory</a></li>
+                        <li><a href="/contacts/">Contact</a></li>
                     </ul>
                 </div>
 
@@ -1010,7 +1022,8 @@
                     <ul class="footer-links">
                         <li><a href="/sales/">Sales</a></li>
                         <li><a href="/invoices/">Invoices</a></li>
-                        <li><a href="/accounts/login/">Login</a></li>
+                        <li><a href="/contacts/privacy-policy/">Privacy Policy</a></li>
+                        <li><a href="/contacts/terms-conditions/">Terms &amp; Conditions</a></li>
                     </ul>
                 </div>
             </div>
@@ -1021,8 +1034,8 @@
             <div class="site-footer-links">
                 <a href="/">Home</a>
                 <a href="/products/">Products</a>
+                <a href="/contacts/">Contact</a>
                 <a href="/contacts/privacy-policy/">Privacy Policy</a>
-                <a href="/contacts/terms-conditions/">Terms</a>
                 <a href="/accounts/login/">Login</a>
             </div>
         </div>

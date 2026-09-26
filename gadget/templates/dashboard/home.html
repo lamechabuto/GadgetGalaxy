@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}Home | GadgetGalaxy{% endblock %}
 
@@ -27,7 +28,7 @@
             </div>
             <div class="card">
                 <h3>Revenue</h3>
-                <div class="stat">Ksh. {{ revenue }}</div>
+                <div class="stat">Ksh. {{ revenue|floatformat:2|intcomma }}</div>
             </div>
         </div>
 
@@ -62,7 +63,7 @@
                         <span class="badge">{{ product.device_type|title }}</span>
                         <h4>{{ product.brand }} {{ product.name }}</h4>
                         <p class="muted">{{ product.category.name }}</p>
-                        <div class="price">Ksh. {{ product.price }}</div>
+                        <div class="price">Ksh. {{ product.price|floatformat:2|intcomma }}</div>
                     </div>
                 </div>
             {% empty %}
@@ -115,7 +116,7 @@
                             <tr>
                                 <td>{{ order.customer_name }}</td>
                                 <td>{{ order.status }}</td>
-                                <td>Ksh. {{ order.total_amount }}</td>
+                                <td>Ksh. {{ order.total_amount|floatformat:2|intcomma }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

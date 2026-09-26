@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}Order placed | GadgetGalaxy{% endblock %}
 
@@ -6,7 +7,7 @@
 <div class="card">
     <h1>Order placed successfully</h1>
     <p>Thank you, {{ order.customer_name }}.</p>
-    <p><strong>Order total:</strong> ${{ order.total_amount }}</p>
+    <p><strong>Order total:</strong> Ksh. {{ order.total_amount|floatformat:2|intcomma }}</p>
     <p><strong>Payment method:</strong> {{ order.get_payment_method_display }}</p>
     <p><strong>Status:</strong> {{ order.status }}</p>
     <p><strong>Invoice:</strong> {{ order.invoice.invoice_number }}</p>
