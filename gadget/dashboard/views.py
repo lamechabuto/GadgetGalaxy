@@ -7,6 +7,7 @@ from sales.models import SaleOrder
 
 
 def dashboard_home(request):
+    SaleOrder.cancel_expired_pending_orders()
     total_products = Product.objects.count()
     total_stock = Product.objects.aggregate(total_stock=Sum('stock_quantity'))['total_stock'] or 0
     total_orders = SaleOrder.objects.count()

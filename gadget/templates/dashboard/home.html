@@ -4,10 +4,325 @@
 {% block title %}Home | GadgetGalaxy{% endblock %}
 
 {% block content %}
+<style>
+    .home-editorial {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #111827 0%, #312e81 38%, #1d4ed8 100%);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 34px;
+        padding: 30px 28px;
+        box-shadow: 0 26px 60px rgba(79, 70, 229, 0.22);
+        margin-bottom: 28px;
+    }
+
+    .home-editorial-grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .home-editorial .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(12px);
+        opacity: 0.7;
+        z-index: 0;
+    }
+
+    .home-editorial .blob-one {
+        width: 280px;
+        height: 280px;
+        top: -80px;
+        right: 22%;
+        background: rgba(251, 191, 36, 0.32);
+    }
+
+    .home-editorial .blob-two {
+        width: 300px;
+        height: 300px;
+        bottom: -90px;
+        right: -20px;
+        background: rgba(16, 185, 129, 0.22);
+    }
+
+    .editorial-copy {
+        position: relative;
+        z-index: 1;
+        color: #f8fafc;
+    }
+
+    .editorial-kicker {
+        display: inline-block;
+        padding: 7px 14px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.2);
+        color: #e2e8f0;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+    }
+
+    .editorial-copy h1 {
+        margin: 0;
+        font-size: clamp(2.4rem, 4vw, 4.2rem);
+        line-height: 0.98;
+        letter-spacing: -0.06em;
+        font-weight: 900;
+        max-width: 560px;
+    }
+
+    .editorial-copy p {
+        margin: 18px 0 0;
+        max-width: 540px;
+        color: rgba(248, 250, 252, 0.82);
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }
+
+    .editorial-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+    }
+
+    .editorial-actions .btn {
+        padding: 12px 18px;
+        font-size: 0.95rem;
+    }
+
+    .mini-metrics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-top: 28px;
+        color: rgba(248, 250, 252, 0.9);
+    }
+
+    .mini-metrics strong {
+        display: block;
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #ffffff;
+    }
+
+    .mini-metrics span {
+        font-size: 0.78rem;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: rgba(226, 232, 240, 0.8);
+    }
+
+    .showcase-wrap {
+        position: relative;
+        min-height: 370px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .showcase-card {
+        position: absolute;
+        border-radius: 28px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.18);
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.28);
+    }
+
+    .showcase-main {
+        width: min(100%, 390px);
+        background: linear-gradient(180deg, rgba(15,23,42,0.75), rgba(30,41,59,0.9));
+        padding: 22px 22px 18px;
+        color: #f8fafc;
+        right: 24px;
+        top: 26px;
+    }
+
+    .showcase-main .product-tag {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(236, 72, 153, 0.18);
+        color: #fbcfe8;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .showcase-main h3 {
+        margin: 16px 0 10px;
+        font-size: clamp(1.8rem, 2vw, 2.5rem);
+        letter-spacing: -0.05em;
+    }
+
+    .showcase-main p {
+        margin: 0;
+        color: rgba(248, 250, 252, 0.8);
+        line-height: 1.7;
+    }
+
+    .showcase-price {
+        margin-top: 18px;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #f8fafc;
+    }
+
+    .showcase-visual {
+        width: 210px;
+        height: 220px;
+        right: 90px;
+        bottom: 0;
+        background: linear-gradient(135deg, #22d3ee 0%, #8b5cf6 45%, #ec4899 100%);
+        border-radius: 32px;
+        transform: rotate(10deg);
+        position: absolute;
+        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.28);
+    }
+
+    .showcase-visual::before,
+    .showcase-visual::after {
+        content: "";
+        position: absolute;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.18);
+    }
+
+    .showcase-visual::before {
+        width: 90px;
+        height: 90px;
+        top: 20px;
+        left: 24px;
+    }
+
+    .showcase-visual::after {
+        width: 120px;
+        height: 14px;
+        left: 45px;
+        bottom: 26px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.24);
+    }
+
+    .showcase-float {
+        left: 24px;
+        bottom: 8px;
+        width: 172px;
+        padding: 16px 18px;
+        background: rgba(255,255,255,0.12);
+        color: #f8fafc;
+    }
+
+    .showcase-float strong {
+        display: block;
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+    }
+
+    .showcase-float span {
+        font-size: 0.8rem;
+        color: rgba(248, 250, 252, 0.78);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+        .home-editorial-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .showcase-wrap {
+            min-height: 300px;
+        }
+
+        .showcase-main {
+            right: 14px;
+        }
+
+        .showcase-float {
+            left: 14px;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .home-editorial {
+            padding: 22px 18px;
+        }
+
+        .editorial-copy h1 {
+            font-size: 2.3rem;
+        }
+
+        .showcase-main {
+            width: 88%;
+            right: 8px;
+        }
+
+        .showcase-visual {
+            width: 168px;
+            height: 190px;
+            right: 30px;
+        }
+    }
+</style>
+
 <div class="dashboard-shell">
     <div class="dashboard-backdrop"></div>
     <div class="dashboard-panel">
-        <div class="page-hero">
+        <div class="home-editorial">
+            <div class="blob blob-one"></div>
+            <div class="blob blob-two"></div>
+            <div class="home-editorial-grid">
+                <div class="editorial-copy">
+                    <span class="editorial-kicker">Fresh arrivals</span>
+                    <h1>Smarter tech for the way you live.</h1>
+                    <p>Discover premium phones, laptops, and accessories designed to move faster, work smarter, and look sharper in every room.</p>
+                    <div class="editorial-actions">
+                        <a class="btn btn-primary" href="/products/">Shop now</a>
+                        <a class="btn btn-secondary" href="/contacts/">Talk to sales</a>
+                    </div>
+                    <div class="mini-metrics">
+                        <div>
+                            <strong>12k+</strong>
+                            <span>happy buyers</span>
+                        </div>
+                        <div>
+                            <strong>4.9/5</strong>
+                            <span>customer rating</span>
+                        </div>
+                        <div>
+                            <strong>24/7</strong>
+                            <span>support</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="showcase-wrap" aria-hidden="true">
+                    <div class="showcase-card showcase-float">
+                        <strong>89k</strong>
+                        <span>Stock ready</span>
+                    </div>
+                    <div class="showcase-visual"></div>
+                    <div class="showcase-card showcase-main">
+                        <span class="product-tag">New release</span>
+                        <h3>Galaxy Pro X</h3>
+                        <p>AI-powered performance with ultra-sharp display and all-day battery.</p>
+                        <div class="showcase-price">Ksh. 89,500</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-hero" style="margin-top: 8px;">
             <span class="hero-badge">Home</span>
             <h1>Welcome back</h1>
             <p>Monitor stock health, order activity, and revenue performance from one streamlined command center.</p>

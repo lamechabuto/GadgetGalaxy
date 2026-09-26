@@ -1,0 +1,26 @@
+<svg width="460" height="120" viewBox="0 0 460 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">GadgetGalaxy logo</title>
+  <desc id="logoDesc">A modern gadget-themed logo with a stylized G icon and the GadgetGalaxy wordmark.</desc>
+  <defs>
+    <linearGradient id="panel" x1="10" y1="10" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06B6D4"/>
+      <stop offset="0.58" stop-color="#4F46E5"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="130" y1="18" x2="328" y2="92" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#4F46E5"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(10 12)">
+    <rect x="0" y="0" width="96" height="96" rx="24" fill="url(#panel)"/>
+    <path d="M61 28C47.745 28 37 38.745 37 52C37 65.255 47.745 76 61 76H74.5V64H61C54.373 64 49 58.627 49 52C49 45.373 54.373 40 61 40H69.5C72.538 40 75 37.538 75 34.5C75 31.462 72.538 29 69.5 29H59.5C52.596 29 47 34.596 47 41.5V42.5" stroke="white" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M74 23L78 15L82 23L90 27L82 31L78 39L74 31L66 27L74 23Z" fill="#FBBF24"/>
+  </g>
+
+  <g transform="translate(124 25)">
+    <text x="0" y="28" font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="30" fill="url(#glow)" letter-spacing="0.5">Gadget</text>
+    <text x="0" y="62" font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="30" fill="#4F46E5" letter-spacing="0.5">Galaxy</text>
+  </g>
+</svg>

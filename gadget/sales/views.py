@@ -4,6 +4,7 @@ from sales.models import SaleOrder
 
 
 def sales_home(request):
+    SaleOrder.cancel_expired_pending_orders()
     orders = SaleOrder.objects.prefetch_related('items__product').order_by('-created_at')
     context = {
         'orders': orders,

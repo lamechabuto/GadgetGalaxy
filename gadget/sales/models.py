@@ -1,11 +1,14 @@
+from datetime import timedelta
 from decimal import Decimal
 
 from django.db import models
+from django.utils import timezone
 
 from products.models import Product
 
 
 class SaleOrder(models.Model):
+    PENDING_EXPIRY_HOURS = 12
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('paid', 'Paid'),
@@ -42,6 +45,13 @@ class SaleOrder(models.Model):
         self.status = 'paid'
         self.save(update_fields=['status', 'updated_at'])
         return self.total_amount
+
+    @classmethod
+    def cancel_expired_pending_orders(cls):
+        cutoff = timezone.now() - timedelta(hours=cls.PENDING_EXPIRY_HOURS)
+        expired_orders = cls.objects.filter(status='pending', created_at__lt=cutoff)
+        expired_orders.update(status='cancelled', updated_at=timezone.now())
+        return expired_orders.count()
 
 
 class SaleOrderItem(models.Model):

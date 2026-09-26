@@ -1,7 +1,9 @@
 from decimal import Decimal
+from io import BytesIO
 
 from django.test import TestCase
 from django.urls import reverse
+from pypdf import PdfReader
 
 from cart.models import Cart
 from invoices.models import Invoice
@@ -33,3 +35,12 @@ class InvoicePdfTests(TestCase):
         self.assertEqual(response['Content-Type'], 'application/pdf')
         self.assertIn('filename="INV-', response['Content-Disposition'])
         self.assertTrue(response.content.startswith(b'%PDF'))
+
+        reader = PdfReader(BytesIO(response.content))
+        pages_text = ''
+        for page in reader.pages:
+            pages_text += page.extract_text() or ''
+
+        self.assertIn('Ksh.', pages_text)
+        self.assertNotIn('USD', pages_text)
+        self.assertNotIn('$', pages_text)
