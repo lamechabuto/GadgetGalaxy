@@ -19,7 +19,7 @@ def contact_page(request):
                 'form_data': {'name': name, 'email': email, 'phone': phone, 'message': message},
             })
 
-        contact = ContactMessage.objects.create(
+        ContactMessage.objects.create(
             name=name,
             email=email,
             phone=phone,
@@ -50,3 +50,11 @@ def contact_page(request):
         'success_message': success_message,
         'form_data': {'name': '', 'email': '', 'phone': '', 'message': ''},
     })
+
+
+def privacy_policy(request):
+    return render(request, 'config/privacy_policy.html', {})
+
+
+def terms_and_conditions(request):
+    return render(request, 'config/terms_and_conditions.html', {})

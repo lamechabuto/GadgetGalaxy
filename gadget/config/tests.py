@@ -31,3 +31,18 @@ class ContactMessageTests(TestCase):
         self.assertContains(response, 'Contact GadgetGalaxy')
         self.assertContains(response, 'Send us a message')
         self.assertContains(response, 'Chat on WhatsApp')
+
+    def test_legal_pages_exist_and_show_cookie_notice_content(self):
+        privacy_response = self.client.get(reverse('privacy_policy'))
+        terms_response = self.client.get(reverse('terms_and_conditions'))
+
+        self.assertEqual(privacy_response.status_code, 200)
+        self.assertContains(privacy_response, 'Privacy Policy')
+        self.assertContains(privacy_response, 'cookies')
+
+        self.assertEqual(terms_response.status_code, 200)
+        self.assertContains(terms_response, 'Terms & Conditions')
+
+        base_response = self.client.get(reverse('dashboard_home'))
+        self.assertContains(base_response, 'We use cookies')
+        self.assertContains(base_response, 'Accept cookies')

@@ -237,6 +237,54 @@
             border-top: 1px solid rgba(148, 163, 184, 0.25);
         }
 
+        .cookie-banner {
+            position: sticky;
+            bottom: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.96);
+            color: #f8fafc;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 -12px 28px rgba(15, 23, 42, 0.15);
+        }
+
+        .cookie-banner-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-banner p {
+            margin: 0;
+            color: rgba(248, 250, 252, 0.9);
+            line-height: 1.6;
+            flex: 1 1 500px;
+        }
+
+        .cookie-banner a {
+            color: #7dd3fc;
+            text-decoration: underline;
+        }
+
+        .cookie-banner.hidden {
+            display: none;
+        }
+
+        .cookie-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-actions .btn {
+            min-width: max-content;
+        }
+
         .site-footer-inner {
             max-width: 1200px;
             margin: 0 auto;
@@ -415,14 +463,14 @@
 
         .page-hero h1 {
             margin: 16px 0 10px;
-            font-size: clamp(2rem, 3vw, 2.7rem);
+            font-size: clamp(1.7rem, 2.4vw, 2.2rem);
             color: var(--primary-dark);
         }
 
         .page-hero p {
             margin: 0;
             color: var(--text-soft);
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .cards {
@@ -444,12 +492,12 @@
         .card h3 {
             margin: 0 0 14px;
             color: var(--primary-dark);
-            font-size: 1rem;
+            font-size: 0.96rem;
             letter-spacing: 0.02em;
         }
 
         .stat {
-            font-size: clamp(1.9rem, 2.6vw, 2.7rem);
+            font-size: clamp(1.6rem, 2vw, 2.2rem);
             font-weight: 800;
             color: #000000;
             line-height: 1.1;
@@ -633,16 +681,17 @@
         .product-card h4 {
             margin: 14px 0 10px;
             color: var(--text);
-            font-size: 1.28rem;
+            font-size: 1.15rem;
         }
 
         .product-card p {
             color: var(--text-soft);
             margin: 8px 0;
+            font-size: 0.95rem;
         }
 
         .price {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: #000000;
             margin: 12px 0;
@@ -659,7 +708,7 @@
         .section-heading-row h2 {
             margin: 0;
             color: var(--primary-dark);
-            font-size: clamp(1.4rem, 2vw, 2rem);
+            font-size: clamp(1.25rem, 1.7vw, 1.6rem);
         }
 
         .section-heading-row a {
@@ -918,6 +967,18 @@
             </form>
         </div>
     </div>
+    <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent banner">
+        <div class="cookie-banner-inner">
+            <p>
+                We use cookies to improve your shopping experience, remember your preferences, and support secure checkout.
+                Review our <a href="/contacts/privacy-policy/">Privacy Policy</a> and <a href="/contacts/terms-conditions/">Terms &amp; Conditions</a>.
+            </p>
+            <div class="cookie-actions">
+                <button type="button" class="btn btn-primary cookie-accept">Accept cookies</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         {% block content %}{% endblock %}
     </div>
@@ -960,6 +1021,8 @@
             <div class="site-footer-links">
                 <a href="/">Home</a>
                 <a href="/products/">Products</a>
+                <a href="/contacts/privacy-policy/">Privacy Policy</a>
+                <a href="/contacts/terms-conditions/">Terms</a>
                 <a href="/accounts/login/">Login</a>
             </div>
         </div>
@@ -969,6 +1032,20 @@
         document.addEventListener('DOMContentLoaded', function () {
             const navMenu = document.querySelector('.nav-menu');
             const navToggle = document.querySelector('.nav-toggle');
+            const cookieBanner = document.getElementById('cookie-banner');
+            const cookieAcceptButton = document.querySelector('.cookie-accept');
+
+            if (cookieBanner && cookieAcceptButton) {
+                const consentKey = 'gadgetgalaxy_cookie_consent';
+                if (localStorage.getItem(consentKey) === 'accepted') {
+                    cookieBanner.classList.add('hidden');
+                }
+
+                cookieAcceptButton.addEventListener('click', function () {
+                    localStorage.setItem(consentKey, 'accepted');
+                    cookieBanner.classList.add('hidden');
+                });
+            }
 
             if (!navMenu || !navToggle) return;
 

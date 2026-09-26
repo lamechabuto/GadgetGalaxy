@@ -43,7 +43,7 @@ class MpesaSTKTests(TestCase):
             {
                 'customer_name': 'Alice',
                 'customer_email': 'alice@example.com',
-                'phone_number': '254712345678',
+                'phone_number': '+254742426451',
                 'payment_method': 'mpesa',
             },
         )
